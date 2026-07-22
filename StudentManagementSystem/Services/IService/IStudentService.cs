@@ -12,5 +12,6 @@ namespace StudentManagementSystem.Services.IService
         Task<ApiResponse<StudentResponseDto>> UpdateAsync(Guid id, UpdateStudentDto dto);
 
         Task<ApiResponse<string>> DeleteAsync(Guid productId);
+        Task<ApiResponse<StudentResponseDto>> GetByIdAsync(Guid id);
     }
 }

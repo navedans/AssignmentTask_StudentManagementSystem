@@ -1,24 +1,40 @@
-﻿# Student Management System API
+﻿# Student Management System
 
-A RESTful ASP.NET Core 8 Web API for managing student records using JWT Authentication, SQL Server, Entity Framework Core, Serilog Logging, and Global Exception Handling.
+Student Management System is a full-stack application developed using ASP.NET Core 8 Web API and Angular 16. It allows authenticated users to manage student records with JWT Authentication and provides a simple user interface for performing CRUD operations.
 
 ---
 
 ## Features
 
+### Backend
+
 - JWT Authentication
 - Student CRUD Operations
 - SQL Server Database
+- Entity Framework Core
 - Repository Pattern
 - Service Layer
 - Global Exception Handling Middleware
 - Serilog Logging
 - Swagger API Documentation
-- Layered Architecture
+
+### Frontend
+
+- Angular 16
+- Login Authentication
+- JWT Token Handling
+- HTTP Interceptor
+- Route Guard
+- Student CRUD Pages
+- Bootstrap UI
+- Toastr Notifications
+- Reactive Forms Validation
 
 ---
 
 ## Technology Stack
+
+### Backend
 
 - ASP.NET Core 8 Web API
 - C#
@@ -28,6 +44,14 @@ A RESTful ASP.NET Core 8 Web API for managing student records using JWT Authenti
 - Serilog
 - Swagger (OpenAPI)
 
+### Frontend
+
+- Angular 16
+- TypeScript
+- Bootstrap 5
+- Reactive Forms
+- ngx-toastr
+
 ---
 
 ## Project Structure
@@ -35,23 +59,30 @@ A RESTful ASP.NET Core 8 Web API for managing student records using JWT Authenti
 ```
 StudentManagementSystem
 │
-├── Controllers
-├── Services
-├── Repositories
-├── DTOs
-├── Entities
-├── Middleware
-├── Helpers
-├── Data
-├── Common
-└── Program.cs
+├── Backend
+│   ├── Controllers
+│   ├── Services
+│   ├── Repositories
+│   ├── DTOs
+│   ├── Entities
+│   ├── Middleware
+│   ├── Helpers
+│   ├── Data
+│   └── Program.cs
+│
+└── Frontend
+    ├── Components
+    ├── Services
+    ├── Guards
+    ├── Interceptors
+    └── app-routing.module.ts
 ```
 
 ---
 
 ## Setup Instructions
 
-### 1. Clone the repository
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/navedans/AssignmentTask_StudentManagementSystem.git
@@ -59,15 +90,11 @@ git clone https://github.com/navedans/AssignmentTask_StudentManagementSystem.git
 
 ---
 
-### 2. Open the solution
+### 2. Backend Setup
 
-Open the project using **Visual Studio 2022**.
+Open the Web API project using **Visual Studio 2022**.
 
----
-
-### 3. Configure SQL Server
-
-Update the connection string inside **appsettings.json**
+Update the SQL Server connection string in **appsettings.json**.
 
 Example:
 
@@ -77,11 +104,7 @@ Example:
 }
 ```
 
----
-
-### 4. Create Database
-
-Run the following command:
+Apply migration
 
 Package Manager Console
 
@@ -91,25 +114,45 @@ Update-Database
 
 or
 
-.NET CLI
-
 ```bash
 dotnet ef database update
 ```
 
----
-
-### 5. Run the Project
-
-Press **F5**
-
-or
+Run the API
 
 ```bash
 dotnet run
 ```
 
-Swagger UI will open automatically.
+Swagger
+
+```
+https://localhost:<port>/swagger
+```
+
+---
+
+### 3. Frontend Setup
+
+Open the Angular project.
+
+Install packages
+
+```bash
+npm install
+```
+
+Run the application
+
+```bash
+ng serve
+```
+
+Open
+
+```
+http://localhost:4200
+```
 
 ---
 
@@ -121,21 +164,21 @@ Login Endpoint
 POST /api/auth/login
 ```
 
-Request
+Sample Request
 
 ```json
 {
-  "userName": "admin",
-  "password": "Admin@123"
+  "userName": "Admin",
+  "password": "Admin@2k26"
 }
 ```
 
-After login, copy the generated JWT Token.
+After successful login, copy the generated JWT token.
 
-Click **Authorize** in Swagger and enter
+In Swagger click **Authorize** and enter
 
 ```
-<your_token>
+Bearer <your_token>
 ```
 
 ---
@@ -144,36 +187,54 @@ Click **Authorize** in Swagger and enter
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| GET | /api/students | Get all students |
-| POST | /api/students | Add new student |
-| PUT | /api/students/{id} | Update student |
-| DELETE | /api/students/{id} | Delete student |
+| GET | /api/students?page=1&size=10 | Get Students |
+| POST | /api/students | Add Student |
+| PUT | /api/students/{id} | Update Student |
+| DELETE | /api/students/{id} | Delete Student |
 
 ---
 
 ## Logging
 
-Serilog is configured for application logging.
+Application logging is implemented using Serilog.
 
-Logs are generated inside the **Logs** folder.
+Log files are generated inside the **Logs** folder.
 
 ---
 
-## Global Exception Handling
+## Exception Handling
 
-A custom Exception Middleware is implemented to handle all unhandled exceptions and return consistent API responses.
+Global Exception Middleware is used to handle unhandled exceptions and return a consistent API response.
+
+---
+
+## Docker Support
+
+Docker configuration files (`Dockerfile` and `.dockerignore`) are included for the Web API.
+
+Build Docker Image
+
+```bash
+docker build -t student-management-system-api .
+```
+
+Run Docker Container
+
+```bash
+docker run -d -p 8080:8080 --name student-api student-management-system-api
+```
 
 ---
 
 ## Default Login Credentials
 
-Username
+**Username**
 
 ```
 Admin
 ```
 
-Password
+**Password**
 
 ```
 Admin@2k26

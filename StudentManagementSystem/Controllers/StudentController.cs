@@ -47,5 +47,13 @@ namespace StudentManagementSystem.Controllers
             return StatusCode(response.StatusCode, response);
         }
 
+        [HttpGet("{id:guid}")]
+        public async Task<IActionResult> GetById(Guid id)
+        {
+            var response = await _service.GetByIdAsync(id);
+
+            return StatusCode(response.StatusCode, response);
+        }
+
     }
 }

@@ -131,5 +131,37 @@ namespace StudentManagementSystem.Services
                 "Student deleted successfully.",
                 "Student deleted successfully.");
         }
+
+        public async Task<ApiResponse<StudentResponseDto>> GetByIdAsync(Guid id)
+        {
+            _logger.LogInformation("Fetching student with Id {StudentId}", id);
+
+            var student = await _repository.GetByIdAsync(id);
+
+            if (student == null)
+            {
+                _logger.LogWarning("Student not found. Id: {StudentId}", id);
+
+                return ApiResponseHelper.NotFound<StudentResponseDto>(
+                    "Student not found.");
+            }
+
+            var response = new StudentResponseDto
+            {
+                Id = student.Id,
+                Name = student.Name,
+                Email = student.Email,
+                Age = student.Age,
+                Course = student.Course,
+                CreatedDate = student.CreatedDate,
+                UpdatedDate = student.UpdatedDate
+            };
+
+            _logger.LogInformation("Student fetched successfully.");
+
+            return ApiResponseHelper.Success(
+                response,
+                "Student fetched successfully.");
+        }
     }
 }

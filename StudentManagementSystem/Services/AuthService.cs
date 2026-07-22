@@ -21,10 +21,10 @@ namespace StudentManagementSystem.Services
         public async Task<ApiResponse<LoginResponseDto>> LoginAsync(LoginDto dto)
         {
            
-            var userName = _configuration["AuthUser:Username"];
+            var userName = _configuration["AuthUser:Username"]?.ToLower();
             var password = _configuration["AuthUser:Password"];
 
-            if (dto.UserName != userName || dto.Password != password)
+            if (dto.UserName.ToLower() != userName || dto.Password != password)
             {
                 return ApiResponseHelper.BadRequest<LoginResponseDto>(
                     message: "Invalid username or password.");
